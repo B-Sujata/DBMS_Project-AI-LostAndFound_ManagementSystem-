@@ -27,8 +27,8 @@ def get_db_connection():
     try:
         db_password = os.environ.get('DB_PASSWORD')
         if not db_password:
-            print("WARNING: Database password not set in environment variables. Using fallback.")
-            db_password = "Suja@2006" 
+            print("WARNING: Database password not set in environment variables.")
+            return None  # Don't connect without password
             
         conn = psycopg2.connect(
             host="db.eiulinywwfkmfnmjwwyn.supabase.co",
