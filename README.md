@@ -96,8 +96,8 @@ Top matches returned + notification sent
 
 ## 💡 What I Learned
 Built this during my 3rd year as part of DBMS coursework. 
-The biggest challenge was when Supabase kept disconnecting and I had to debug the connection pooling for hours .
-But this project taught me a lot.
+The biggest challenge was when Supabase kept disconnecting and I had to debug the connection pooling for hours,
+but this project taught me a lot.
 
 ## 👩‍💻 Author
 
