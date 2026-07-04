@@ -1,63 +1,106 @@
-# TY_DBMS_Project-LostAndFound_ManagementSystem-
+# AI-Powered Lost & Found Management System
 
-Lost and Found Management System: A web app to report, track, and match lost and found items with admin verification and notifications. Built with Flask, PostgreSQL, and JS.
+A full-stack intelligent platform for managing lost and found items using 
+multimodal AI matching — combining image similarity, NLP text embeddings, 
+and metadata re-ranking for accurate item retrieval.
 
-# Lost and Found Management System
+## 🚀 Features
 
-## Overview
+- 🖼️**Multimodal Item Matching** — image similarity + NLP text embeddings 
+  + metadata re-ranking
+- 🔎 **FAISS Vector Search** — scalable retrieval across large item databases
+- 📱 **QR-Based Claim Verification** — secure item claiming system
+- 🔐 **User Authentication** — secure registration and login
+- 📊 **Analytics Dashboard** — recovery statistics and system monitoring
+- 🔔 **Notification System** — alerts when matching items are found
+- ✅ **Admin Verification** — approve and manage item listings
+- 🗄️ **Optimised Database** — normalised relational DB with trigger-based 
+  automation and indexed queries
 
-The Lost and Found Management System is a web-based application designed to help institutions efficiently manage and track lost and found items. Users can report lost or found belongings by providing detailed information such as item name, description, category, date, location, and contact details. The system allows users to search and filter through the database to find matching items.
+## 🛠️ Tech Stack
 
-Administrators verify and approve listings to ensure the database remains accurate and trustworthy. The platform also sends notifications when possible matches are found, speeding up the process of returning items to their rightful owners.
+| Layer | Technology |
+|---|---|
+| Backend | Python, Flask |
+| Database | PostgreSQL (Supabase) |
+| AI/ML | TensorFlow, FAISS, OpenCV |
+| NLP | Sentence Transformers, NLP embeddings |
+| Frontend | HTML, CSS, JavaScript |
+| Auth & QR | Flask-Login, qrcode library |
 
-## Features
+## 📁 Project Structure
 
-- User registration and authentication
-- Report lost or found items with detailed descriptions
-- Search and filter items in the database
-- Admin verification and approval of listings
-- Notification system for matching items
-- Secure database management using PostgreSQL
+DBMS_Project/
+├── app.py                  # Main Flask application
+├── templates/              # HTML templates
+│   ├── home.html
+│   ├── report.html
+│   ├── matches.html
+│   ├── admin_dashboard.html
+│   ├── analytics.html
+│   └── ...
+├── static/                 # Static files
+├── project_tables_dbms.sql # Database schema
+├── requirements.txt        # Dependencies
+└── DBMS_Lost_And_Found_ER_Diagram.jpeg  # ER Diagram
 
-## Technology Stack
-
-- Backend: Python (Flask)
-- Database: PostgreSQL
-- Frontend: HTML, CSS, JavaScript
-
-## Installation
+## ⚙️ Installation
 
 1. Clone the repository:
+```bash
+git clone https://github.com/B-Sujata/DBMS_Project-AI-LostAndFound_ManagementSystem-.git
+cd DBMS_Project-AI-LostAndFound_ManagementSystem-
+```
 
-   ```bash
-   git clone https://github.com/your-username/your-repo.git
-   ```
+2. Create and activate virtual environment:
+```bash
+python -m venv dbms_env
+dbms_env\Scripts\activate  # Windows
+```
 
-2. Navigate to the project directory:
-   cd your-repo
-
-3. Create and activate a virtual environment:
-   python -m venv venv
-   source venv/bin/activate # On Windows use: venv\Scripts\activate
-
-4. Install dependencies:
-
+3. Install dependencies:
+```bash
 pip install -r requirements.txt
+```
 
-5.Set up PostgreSQL and configure database connection in the application.
+4. Set up environment variables:
+```bash
+# Create a .env file with:
+DB_PASSWORD=your_supabase_password
+SECRET_KEY=your_secret_key
+```
 
-6.Run the Flask app:
-
+5. Run the application:
+```bash
 flask run
+```
 
-Usage
-Register as a user to report lost or found items.
+## 🧠 How AI Matching Works
+User reports item
+↓
+Image → TensorFlow feature extraction
+Text  → Sentence Transformer embeddings
+↓
+FAISS vector search across database
+↓
+Metadata re-ranking for accuracy
+↓
+Top matches returned + notification sent
 
-Search the database for matching items.
+## 📊 Database Design
 
-Admins can verify and approve item listings.
+- Normalised relational schema (3NF)
+- Trigger-based automation for status updates
+- Optimised indexing for high-throughput queries
+- ER Diagram included in repository
 
-Receive notifications for potential matches.
+## 💡 What I Learned
+Built this during my 3rd year as part of DBMS coursework. 
+The biggest challenge was when Supabase kept disconnecting and I had to debug the connection pooling for hours .
+But this project taught me a lot.
 
-Contributing
-Contributions are welcome! Please fork the repo and create a pull request.
+## 👩‍💻 Author
+
+**Sujata Bhadke** — B.Tech IT, VIIT Pune  
+[LinkedIn](https://www.linkedin.com/in/sujata-bhadke-70a2342ba/) | 
+[GitHub](https://github.com/B-Sujata)
