@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
+content %}
+<nav>
+  <ul>
+    <li><strong>Welcome, {{ username }}!</strong></li>
+  </ul>
+  <ul>
+    <li>
+      <a href="{{ url_for('notifications') }}"
+        >Notifications ({{ notification_count }})</a
+      >
+    </li>
+    {% if session.get('is_admin') %}
+    <li>
+      <a href="{{ url_for('admin_dashboard') }}" role="button" class="secondary"
+        >Admin Dashboard</a
+      >
+    </li>
+    {% endif %}
+    <li><a href="{{ url_for('logout') }}" role="button">Logout</a></li>
+  </ul>
+</nav>
+
+<hr />
+
+<h2>I want to...</h2>
+<div class="grid">
+  <a href="{{ url_for('report_item', item_type='lost') }}" role="button"
+    >Report a Lost Item</a
+  >
+  <a href="{{ url_for('report_item', item_type='found') }}" role="button"
+    >Report a Found Item</a
+  >
+</div>
+
+<hr />
+
+<h2>My Reported Lost Items</h2>
+{% if lost_items %} {% for item in lost_items %}
+<article>
+  <img
+    src="/{{ item.image_path }}"
+    width="150"
+    alt="Lost item"
+    style="float: left; margin-right: 20px"
+  />
+  <p>
+    <strong>{{ item.category_name }}:</strong> {{ item.description }} <br />
+    <strong>Status:</strong> {{ item.status }} <br />
+    <strong>Lost at:</strong> {{ item.location_lost }} on {{ item.date_lost }}
+    <br />
+    <a href="{{ url_for('find_matches', lost_item_id=item.id) }}"
+      ><strong>Check for Matches</strong></a
+    >
+  </p>
+</article>
+{% endfor %} {% else %}
+<p>You have not reported any lost items.</p>
+{% endif %}
+
+<hr />
+
+<h2>Recently Found Items</h2>
+{% for item in found_items %}
+<article>
+  <img
+    src="/{{ item.image_path }}"
+    width="150"
+    alt="Found item"
+    style="float: left; margin-right: 20px"
+  />
+  <p>
+    <strong>{{ item.category_name }}:</strong> {{ item.description }} <br />
+    <strong>Found at:</strong> {{ item.location_found }} on {{ item.date_found
+    }} <br />
+    <strong>Reported by:</strong> {{ item.reported_by }}
+  </p>
+</article>
+{% endfor %} {% endblock %}

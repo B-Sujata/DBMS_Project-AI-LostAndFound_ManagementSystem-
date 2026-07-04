@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Sign Up - Lost & Found AI{% endblock
+%} {% block styles %}
+<style>
+  .form-card {
+    max-width: 400px;
+    margin: 5rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="form-card">
+  <h2 class="text-center mb-4">Create Account</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+  </form>
+  <p class="mt-3 text-center">
+    Already have an account? <a href="{{ url_for('login') }}">Login</a>
+  </p>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block title %}Potential Matches{% endblock %} {%
+block content %}
+<h1 class="mb-4">Potential Matches</h1>
+<a href="{{ url_for('home') }}" class="btn btn-secondary mb-4"
+  >&larr; Back to Dashboard</a
+>
+
+<div class="card mb-4 shadow-sm">
+  <div class="card-header">
+    <h3>Your Lost Item</h3>
+  </div>
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <img
+          src="/{{ lost_item.image_path }}"
+          class="img-fluid rounded"
+          alt="Your Lost Item"
+        />
+      </div>
+      <div class="col-md-9">
+        <p><strong>Description:</strong> {{ lost_item.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Found Items That Might Be a Match:</h3>
+{% if matches %} {% for match in matches %}
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <img
+          src="/{{ match.image_path }}"
+          class="img-fluid rounded"
+          alt="Found Item Match"
+        />
+      </div>
+      <div class="col-md-9">
+        <p class="mb-1">
+          <strong>Description:</strong> {{ match.description }}
+        </p>
+        <p class="mb-2">
+          <small class="text-muted"
+            ><strong>Location Found:</strong> {{ match.location_found }}</small
+          >
+        </p>
+        <p>
+          <strong>Match Confidence:</strong>
+          <span class="badge bg-success fs-6"
+            >{{ "%.0f"|format(match.similarity_score) }}%</span
+          >
+        </p>
+        <form action="{{ url_for('claim_item') }}" method="POST">
+          <input type="hidden" name="lost_item_id" value="{{ lost_item.id }}" />
+          <input type="hidden" name="found_item_id" value="{{ match.id }}" />
+          <button type="submit" class="btn btn-primary">Claim this Item</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% else %}
+<div class="alert alert-warning mt-3">
+  No potential matches found at this time. We will notify you if one appears!
+</div>
+{% endif %} {% endblock %}

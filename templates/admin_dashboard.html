@@ -1,0 +1,92 @@
+{% extends "base.html" %} {% block title %}Admin Dashboard{% endblock %} {%
+block content %}
+<h1 class="mb-3">Admin Dashboard</h1>
+<p>
+  <a href="{{ url_for('home') }}" class="btn btn-secondary">Home</a>
+  <a href="{{ url_for('analytics') }}" class="btn btn-primary"
+    >View Analytics</a
+  >
+  <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+</p>
+<hr />
+
+<h2 class="mt-4">All Reported Lost Items</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Reported By</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in lost_items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.username }}</td>
+        <td>{{ item.description }}</td>
+        <td>
+          <span class="badge bg-warning text-dark">{{ item.status }}</span>
+        </td>
+        <td>
+          <form
+            action="{{ url_for('delete_item', item_type='lost_items', item_id=item.id) }}"
+            method="POST"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2 class="mt-5">All Reported Found Items</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Reported By</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>QR Link</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in found_items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.username }}</td>
+        <td>{{ item.description }}</td>
+        <td><span class="badge bg-success">{{ item.status }}</span></td>
+        <td>
+          {% if item.qr_token %}
+          <a
+            href="{{ url_for('claim_via_qr', token=item.qr_token) }}"
+            target="_blank"
+            >View</a
+          >
+          {% endif %}
+        </td>
+        <td>
+          <form
+            action="{{ url_for('delete_item', item_type='found_items', item_id=item.id) }}"
+            method="POST"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

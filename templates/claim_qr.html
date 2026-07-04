@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block title %}Claim Your Item{% endblock %} {%
+block content %}
+<div class="card mx-auto mt-5 shadow-sm" style="max-width: 600px">
+  <div class="card-header"><h2 class="text-center">Found Item Details</h2></div>
+  <div class="card-body p-4">
+    <p class="text-center">
+      If this item is yours, please log in and select your original lost item
+      report to claim it.
+    </p>
+    <div class="text-center mb-3">
+      <img
+        src="/{{ found_item.image_path }}"
+        alt="Found Item"
+        class="img-fluid rounded"
+        style="max-height: 300px"
+      />
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <strong>Description:</strong> {{ found_item.description }}
+      </li>
+      <li class="list-group-item">
+        <strong>Location Found:</strong> {{ found_item.location_found }}
+      </li>
+      <li class="list-group-item">
+        <strong>Date Found:</strong> {{ found_item.date_found }}
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer p-4">
+    <h3 class="text-center h4">Is This Your Item?</h3>
+    {% if 'user_id' in session %} {% if found_item.status == 'Available' %}
+    <p class="text-center">
+      Welcome, {{ session.username }}! Select your report to claim this item.
+    </p>
+    {% if user_lost_items %}
+    <form action="{{ url_for('claim_item') }}" method="POST">
+      <input type="hidden" name="found_item_id" value="{{ found_item.id }}" />
+      <div class="mb-3">
+        <label for="lost_item_select" class="form-label"
+          >My Corresponding Lost Item:</label
+        >
+        <select
+          name="lost_item_id"
+          id="lost_item_select"
+          class="form-select"
+          required
+        >
+          <option value="" disabled selected>
+            -- Please select your report --
+          </option>
+          {% for lost_item in user_lost_items %}
+          <option value="{{ lost_item.id }}">
+            {{ lost_item.description }} (Lost on {{ lost_item.date_lost }})
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Submit Claim</button>
+      </div>
+    </form>
+    {% else %}
+    <div class="alert alert-warning">
+      You have no pending lost item reports.
+      <a href="{{ url_for('report_item', item_type='lost') }}"
+        >Report a lost item now.</a
+      >
+    </div>
+    {% endif %} {% else %}
+    <div class="alert alert-success text-center">
+      <strong>This item has already been claimed.</strong>
+    </div>
+    {% endif %} {% else %}
+    <div class="alert alert-info text-center">
+      <p><strong>You must be logged in to claim an item.</strong></p>
+      <a href="{{ url_for('login') }}" class="btn btn-primary">Login Now</a>
+      <a href="{{ url_for('signup') }}" class="btn btn-secondary"
+        >Create an Account</a
+      >
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

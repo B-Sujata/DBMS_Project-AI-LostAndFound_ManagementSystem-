@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block title %}System Analytics{% endblock %} {%
+block content %}
+<h1 class="mb-3">System Analytics</h1>
+<p>
+  <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary"
+    >&larr; Back to Admin Dashboard</a
+  >
+</p>
+<hr />
+
+<div class="row g-4">
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm h-100">
+      <div class="card-body">
+        <h1 class="card-title display-4 fw-bold">{{ stats.total_lost }}</h1>
+        <p class="card-text text-muted">Total Items Reported Lost</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm h-100">
+      <div class="card-body">
+        <h1 class="card-title display-4 fw-bold">{{ stats.total_found }}</h1>
+        <p class="card-text text-muted">Total Items Reported Found</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center text-success shadow-sm h-100">
+      <div class="card-body">
+        <h1 class="card-title display-4 fw-bold">{{ stats.total_returned }}</h1>
+        <p class="card-text text-muted">Items Successfully Returned</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center text-primary shadow-sm h-100">
+      <div class="card-body">
+        <h1 class="card-title display-4 fw-bold">{{ stats.recovery_rate }}%</h1>
+        <p class="card-text text-muted">Overall Recovery Rate</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="my-5" />
+
+<div class="card shadow-sm mx-auto" style="max-width: 700px">
+  <div class="card-header">
+    <h3 class="text-center mb-0">Top 5 Most Commonly Lost Categories</h3>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th class="text-center">Number of Reports</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in stats.top_categories %}
+        <tr>
+          <td>{{ category.name }}</td>
+          <td class="text-center fs-5">{{ category.item_count }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

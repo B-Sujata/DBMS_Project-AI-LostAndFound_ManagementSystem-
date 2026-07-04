@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block title %}Report Successful{% endblock %} {%
+block content %}
+<div class="card text-center mx-auto mt-5 shadow-sm" style="max-width: 500px">
+  <div class="card-header">
+    <h2>Report Successful!</h2>
+  </div>
+  <div class="card-body p-4">
+    <h5 class="card-title">Found Item Reported</h5>
+    <p>
+      Please print this QR code and attach it securely to the physical item.
+      This will allow the owner to claim it easily.
+    </p>
+    <img
+      src="/{{ qr_code_path }}"
+      alt="QR Code"
+      class="img-fluid my-3"
+      style="max-width: 250px"
+    />
+    <div class="d-grid">
+      <a href="{{ url_for('home') }}" class="btn btn-primary"
+        >Return to Dashboard</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}
